@@ -1,1 +1,1 @@
-# eed-frontend
+# EED-FrontEnd
