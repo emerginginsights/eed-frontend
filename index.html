@@ -99,21 +99,21 @@
                 <img src="img/image 2.jpg" alt="" class="header__img">
                 <div class="header__info__block">
                     <div class="header__title__block">
-                        <h3 class="header__title">FRANCE</h3>
-                        <img src="img/Country Flag.jpg" alt="" class="flag">
+                        <h3 id='country_name' class="header__title">FRANCE</h3>
+                        <img id='country_flag' src="img/Country Flag.jpg" alt="" class="flag">
                     </div>
-                    <h4 class="subtitle">Paris</h4>
+                    <h4 id='country_capital' class="subtitle">Paris</h4>
                     <div class="container">
                         <div class="header__map__block">
-                            <img src="img/france.png" alt="" class="map__img">
+                            <img id='country_map' src="img/france.png" alt="" class="map__img">
                         </div>
                         <div class="header__text__block">
                             <div class="main__info">
-                                <p>Area: 643,801km2</p>
-                                <p>Spoken Language: French</p>
-                                <p>Previous Elections: 2017</p>
+                                <p>Area: <span id="country_area">643,801</span> km2</p>
+                                <p>Spoken Language: <span id="country_language">French</span></p>
+                                <p>Previous Elections: <span id='country_previous_election'>2017</span></p>
                             </div>
-                            <div class="header__text">
+                            <div id='country_description' class="header__text">
                                 <p>
                                     France is a country whose territory consists of metropolitan France in Western
                                     Europe and several overseas regions and territories.
@@ -140,16 +140,16 @@
                         <h3 class="section__title middle-size__text">Demography</h3>
                         <div class="container">
                             <div class="section__info__block block__bg">
-                                <p class="small__text grey__text__06 right-align__text">2019</p>
+                                <p id="country_population_year" class="small__text grey__text__06 right-align__text">2019</p>
                                 <div class="info-icon__block">
                                     <span class="icon-population-1"></span>
                                 </div>
                                 <h3 class="middle-size__text grey__text__06">Population</h3>
                                 <div class="inner__info__block">
                                     <p class="big-size__text">
-                                        60 Million
+                                        <span id="country_population"60></span> Million
                                     </p>
-                                    <span class="percentages middle-size__text green__text">+5%</span>
+                                    <span id="country_population_grow" class="percentages middle-size__text green__text">+5%</span>
                                 </div>
                                 <p class="small__text grey__text__06">*Source: World Bank</p>
                             </div>
@@ -196,7 +196,7 @@
                                     <div class="left-side">
                                     </div>
                                     <div class="right-side">
-                                        <p class="small__text grey__text__06">
+                                        <p id="ruraltourban_year" class="small__text grey__text__06">
                                             2019
                                         </p>
                                     </div>
@@ -210,7 +210,7 @@
                                             <div class="legend__item" id='item1'>
                                                 <span></span>
                                                 <p class="middle-size__text grey__text__06">
-                                                    Female
+                                                    Rural
                                                 </p>
                                             </div>
                                             <div class="legend__item" id='item2'>
@@ -222,14 +222,14 @@
                                         </div>
                                     </div>
                                     <div class="main-chart___block">
-                                        <div class="stat__block" id='stat1'>
+                                        <!-- <div class="stat__block" id='stat1'>
                                             <p class="smallest__text" id='stat-item-4'>25%</p>
                                             <span></span>
                                         </div>
                                         <div class="stat__block" id='stat2'>
                                             <span></span>
                                             <p class="smallest__text" id='stat-item-3'>75%</p>
-                                        </div>
+                                        </div> -->
                                         <div class="inner-chart__block">
                                             <canvas id='rural-to-urban__chart'></canvas>
                                         </div>
@@ -242,7 +242,7 @@
                                     <div class="left-side">
                                     </div>
                                     <div class="right-side">
-                                        <p class="small__text grey__text__06">
+                                        <p id="maletofemale_year" class="small__text grey__text__06">
                                             2019
                                         </p>
                                     </div>
@@ -268,14 +268,14 @@
                                         </div>
                                     </div>
                                     <div class="main-chart___block">
-                                        <div class="stat__block" id='stat1'>
+                                        <!-- <div class="stat__block" id='stat1'>
                                             <p class="smallest__text" id='stat-item-2'>25%</p>
                                             <span></span>
                                         </div>
                                         <div class="stat__block" id='stat2'>
                                             <span></span>
                                             <p class="smallest__text" id='stat-item-1'>75%</p>
-                                        </div>
+                                        </div> -->
                                         <div class="inner-chart__block">
                                             <canvas id='male-to-female__chart'></canvas>
                                         </div>
@@ -1291,6 +1291,7 @@
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
     <script src='js/Country.js'></script>
+    <script src='js/Demography.js'></script>
     <script src='js/Chart.roundedBarCharts.min.js'></script>
     <script src='js/DemographyChart.js'></script>
     <script src='js/DemographyChartMini.js'></script>
