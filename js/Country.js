@@ -44,6 +44,20 @@ last_no_zero = function(arr) {
     return null;
 }
 
+update_grow = function(grow, grow_id) {
+    if (grow){
+        grow_sign = (grow >= 0) ? '+' : '';
+        text = grow_sign + grow.toFixed(1) + '%'
+    }else{
+        text = ''
+    }
+
+    $(grow_id)
+        .text(text)
+        .removeClass('green__text').removeClass('red__text')
+        .addClass((grow>=0) ? 'green__text': 'red__text')
+}
+
 
 countryStatsPromise.then(function(stats) {
     area = last_no_zero(stats.indicator_values['1100'])

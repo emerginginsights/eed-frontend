@@ -7,7 +7,5 @@ countryStatsPromise.then(function(stats) {
         .text(stats.years[population[0]]); 
     
     grow = stats.indicator_values['2160'][population[0]];
-    grow_sign = (grow>=0) ? '+' : '-';
-    $('#country_population_grow')
-        .text(grow_sign + grow.toFixed(1) + '%')
+    update_grow(grow, '#country_population_grow');
 });
