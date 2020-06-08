@@ -387,7 +387,13 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="container">
+                                <div class="chart__divMini">
+                                        <canvas id="elsources_treemap_mini"></canvas>
+                                </div>
+                                <div class="chart__div">
+                                        <canvas id="elsources_treemap"></canvas>
+                                </div>
+                                <!-- <div class="container">
                                     <div class="gaz__block">
                                         <p class="small__text">Natural Gas</p>
                                     </div>
@@ -402,7 +408,7 @@
                                             <p class="small__text">Oil</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="bottom__chart__block">
                                     <p class="small__text bottom__text grey__text__06">*Source: World Bank</p>
                                 </div>
@@ -704,7 +710,13 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="container">
+                                <div class="chart__divMini">
+                                    <canvas id="co2_treemap_mini"></canvas>
+                                </div>
+                                <div class="chart__div">
+                                    <canvas id="co2_treemap"></canvas>
+                                </div>
+                                <!-- <div class="container">
                                     <div class="gaz__block co2-emmision__block">
                                         <p class="small__text">Gas Fuel Consumption</p>
                                     </div>
@@ -716,7 +728,7 @@
                                             <p class="small__text">Fossil Fuel</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="bottom__chart__block">
                                     <p class="small__text bottom__text grey__text__06">*Source: World Bank</p>
                                 </div>
@@ -1286,6 +1298,7 @@
     </footer>
     <!-- Chart scripts start -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3"></script>
     <script
             src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -1305,6 +1318,8 @@
     <script src='js/GazEmmisionChartMini.js'></script>
     <script src='js/ElSourceChart.js'></script>
     <script src='js/ElSourceChartMini.js'></script>
+    <script src='js/ElSourcesTreeChart.js'></script>
+    <script src='js/CO2TreeChart.js'></script>
     <script src='js/Co2Chart.js'></script>
     <script src='js/Co2ChartMini.js'></script>
     <script src='js/RuralToUrbanChart.js'></script>
