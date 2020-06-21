@@ -1,11 +1,43 @@
-countryStatsPromise.then(function(stats) {
-    population = last_no_zero(stats.indicator_values['2170'])
-    $('#country_population')
-        .text((population[1] / 1000000).toFixed(1));
+demography_sources = [
+    {
+        "source": "Demography",
+        "indicator": '2170',
+        "color": "#8888EA"
+    },
+];
 
-    $('#country_population_year')
-        .text(stats.years[population[0]]); 
-    
-    grow = stats.indicator_values['2160'][population[0]];
-    update_grow(grow, '#country_population_grow');
+rural_to_urban_source = [
+    {
+        "source": "Rural",
+        "indicator": '2240',
+        "color": "#F5D66B"
+    },
+    {
+        "source": "Urban",
+        "indicator": '2270',
+        "color": "rgba(252, 119, 48, 1)"
+    },
+]
+
+male_to_female_source = [
+    {
+        "source": "Male",
+        "indicator": '2190',
+        "color": "#F4D5FF"
+    },
+    {
+        "source": "Female",
+        "indicator": '2210',
+        "color": "#A819E8"
+    },
+]
+
+countryStatsPromise.then(function (stats) {
+    update_simple_indicator(stats, '2170', '#country_population');
+
+    update_area_chart(stats, demography_sources, "demography__chart")
+    update_area_chart(stats, demography_sources, "demography__chart-mini", font_size = 8)
+
+    update_pair_douhnut(stats, rural_to_urban_source, "rural-to-urban__chart", format_number_func = format_percentage)
+    update_pair_douhnut(stats, male_to_female_source, "male-to-female__chart", format_number_func = format_percentage)
 });

@@ -1,45 +1,53 @@
-countryStatsPromise.then(function(stats) {
-    methan = last_no_zero(stats.indicator_values['1460'])
-    $('#methan_emission')
-        .text(methan[1].toFixed(1));
+let co2sources = [
+    {
+        "source": "Gaseous fuel",
+        "indicator": '1290',
+        "color": "#2772FF"
+    },
+    {
+        "source": "Liquid fuel",
+        "indicator": '1320',
+        "color": "#C28EFF"
+    },
+    {
+        "source": "Solid fuel",
+        "indicator": '1350',
+        "color": "#37CC93"
+    },
+]
 
-    $('#methan_emission_year')
-        .text(stats.years[methan[0]]); 
-    
-    grow = stats.indicator_values['2160'][methan[0]];
-    update_grow(grow, '#methan_emission_grow')
-});
+gas_emission_sources = [
+    {
+        "source": "Gaz emissions",
+        "indicator": '1390',
+        "color": "#8888EA"
+    },
+]
 
-countryStatsPromise.then(function(stats) {
-    greenhouse = last_no_zero(stats.indicator_values['1390'])
-    $('#greenhouse_emission')
-        .text(greenhouse[1].toFixed(1));
+methane_sources = [
+    {
+        "source": "Industrial",
+        "indicator": '1450',
+        "color": "#F5D66B"
+    },
+    {
+        "source": "Agricultural",
+        "indicator": '1480',
+        "color": "rgba(252, 119, 48, 1)"
+    },
+]
 
-    $('#greenhouse_emission_year')
-        .text(stats.years[greenhouse[0]]); 
-    
-    if (greenhouse[0] > 0) {
-        prev_greenhouse = stats.indicator_values['1390'][greenhouse[0] - 1];
-        grow = ((greenhouse[1] / prev_greenhouse) - 1) * 100;
-    } else {
-        grow = false;
-    }
-    update_grow(grow, '#greenhouse_emission_grow');
-});
+countryStatsPromise.then(function (stats) {
+    update_simple_indicator(stats, '1460', '#methan_emission');
+    update_simple_indicator(stats, '1390', '#greenhouse_emission');
+    update_simple_indicator(stats, '1310', '#co2_emission');
+    update_tree_chart(stats, co2sources, "co2_treemap")
 
-countryStatsPromise.then(function(stats) {
-    co2 = last_no_zero(stats.indicator_values['1310'])
-    $('#co2_emission')
-        .text(co2[1].toFixed(1));
+    update_area_chart(stats, gas_emission_sources, "gaz-emmisions__chart")
+    update_area_chart(stats, gas_emission_sources, "gaz-emmisions__chart-mini", font_size = 8)
 
-    $('#co2_emission_year')
-        .text(stats.years[co2[0]]); 
-    
-    if (co2[0] > 0) {
-        prev_co2 = stats.indicator_values['1310'][co2[0] - 1];
-        grow = ((co2[1] / prev_co2) - 1) * 100;
-    } else {
-        grow = false;
-    }
-    update_grow(grow, '#co2_emission_grow');
+    update_area_chart(stats, co2sources, "co2__chart")
+    update_area_chart(stats, co2sources, "co2__chart-mini", font_size = 8)
+
+    update_pair_douhnut(stats, methane_sources, "methan__chart", format_number_func = format_percentage)
 });

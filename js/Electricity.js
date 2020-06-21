@@ -1,53 +1,95 @@
-// Access to electricity
-countryStatsPromise.then(function(stats) {
-    electricity = last_no_zero(stats.indicator_values['1000'])
-    $('#country_acces_to_electricity')
-        .text(electricity[1].toFixed(1) + '%');
 
-    $('#country_acces_to_electricity_year')
-        .text(stats.years[electricity[0]]); 
-    
-    if (electricity[0]>0){
-        prev_electricity = stats.indicator_values['1000'][electricity[0]-1];
-        grow = ((electricity[1] / prev_electricity) - 1) * 100; 
-    } else {
-        grow = false;
-    }
-    update_grow(grow, '#country_acces_to_electricity_grow');
-});
+let elsources = [
+    {
+        "source": "Coal",
+        "indicator": '1130',
+        "color": "#0000FF"
+    },
+    {
+        "source": "Oil, Gas and Coal",
+        "indicator": '1140',
+        "color": "#FF0000"
+    },
+    {
+        "source": "Hydroelectric",
+        "indicator": '1150',
+        "color": "#F5D66B"
+    },
+    {
+        "source": "Natural Gas",
+        "indicator": '1170',
+        "color": "#2772FF"
+    },
+    {
+        "source": "Nuclear",
+        "indicator": '1180',
+        "color": "#00FF00"
+    },
+    {
+        "source": "Oil",
+        "indicator": '1190',
+        "color": "#37CC93"
+    },
+    {
+        "source": "Renewable sources, excluding Hydroelectric",
+        "indicator": '1200',
+        "color": "#C28EFF"
+    },
+]
 
-// Production
-countryStatsPromise.then(function(stats) {
-    electricity_prod = last_no_zero(stats.indicator_values['1070'])
-    $('#electricity_prod')
-        .text((electricity_prod[1]/1000).toFixed(1));
+rural_to_urban = [
+    {
+        "source": "Rural",
+        "indicator": '1020',
+        "color": "#76EFFF"
+    },
+    {
+        "source": "Urban",
+        "indicator": '1030',
+        "color": "#2772FF"
+    },
+]
 
-    $('#electricity_prod_year')
-        .text(stats.years[electricity_prod[0]]); 
-    
-    if (electricity_prod[0]>0){
-        prev_electricity_prod = stats.indicator_values['1070'][electricity_prod[0]-1];
-        grow = ((electricity_prod[1] / prev_electricity_prod) - 1) * 100;
-    } else {
-        grow = false;
-    }
-    update_grow(grow, '#electricity_prod_grow');
-});
+elcons_sources = [
+    {
+        "source": "Total",
+        "indicator": '1260',
+        "color": "rgba(252, 119, 48, 1)"
+    },
+    {
+        "source": "Renewable",
+        // "indicator": '1210',
+        "get_data_fn": function (stats) {
+            el_cons_total = stats.indicator_values['1260'];
+            el_cons_green_percent = stats.indicator_values['1210'];
+            el_cons_green = [];
+            for (i in el_cons_green_percent)
+                el_cons_green.push(el_cons_total[i] * el_cons_green_percent[i] / 100);
+            return el_cons_green;
+        },
+        "color": "rgba(55, 204, 147, 1)"
+    },
+]
 
-// Consumption
-countryStatsPromise.then(function(stats) {
-    electricity_cons = last_no_zero(stats.indicator_values['1260'])
-    $('#electricity_cons')
-        .text((electricity_cons[1]).toFixed(1));
+countryStatsPromise.then(function (stats) {
+    // Access to electricity
+    update_simple_indicator(stats, '1000', '#country_acces_to_electricity', format_number_func = format_percentage);
+    // - rural/urban
+    update_area_chart(stats, rural_to_urban, "electricity__chart");
+    update_area_chart(stats, rural_to_urban, "electricity__chart-mini", font_size = 8);
 
-    $('#electricity_cons_year')
-        .text(stats.years[electricity_cons[0]]); 
-    
-    if (electricity_cons[0]>0){
-        prev_electricity_cons = stats.indicator_values['1260'][electricity_cons[0]-1];
-        grow = ((electricity_cons[1] / prev_electricity_cons) - 1) * 100;
-    } else {
-        grow = false;
-    }
-    update_grow(grow, '#electricity_cons_grow');
+    // Production
+    update_simple_indicator(stats, '1070', '#electricity_prod');
+
+    // Consumption
+    update_simple_indicator(stats, '1260', '#electricity_cons');
+    // - chart
+    update_area_chart(stats, elcons_sources, "el-consumption__chart");
+    update_area_chart(stats, elcons_sources, "el-consumption__chart-mini", font_size = 8);
+    // Electricity Sources 
+    // - Treemap
+    update_tree_chart(stats, elsources, "elsources_treemap", format_number_func = format_percentage)
+    // - Chart
+    update_area_chart(stats, elsources, "el-source__chart");
+    update_area_chart(stats, elsources, "el-source__chart-mini", font_size = 8);
 });

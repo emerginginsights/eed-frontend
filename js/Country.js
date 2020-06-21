@@ -1,7 +1,7 @@
 // search and go to the country
 $('body > div > header > div > div.right-side > div.search__block > input')
     .on('keypress', function (e) {
-        if(e.which == 13) {
+        if (e.which == 13) {
             window.location.href = '/?country=' + e.target.value;
         }
     })
@@ -12,11 +12,11 @@ $('main.main').hide();
 
 var searchParams = new URLSearchParams(window.location.search);
 var country_query = searchParams.get('country');
-var countryPromise = Promise.resolve( $.get('/api/countries/'+country_query) )
-var countryStatsPromise = Promise.resolve( $.get('/api/countries/'+country_query+'/stats') )
+var countryPromise = Promise.resolve($.get('/api/countries/' + country_query))
+var countryStatsPromise = Promise.resolve($.get('/api/countries/' + country_query + '/stats'))
 
 
-countryPromise.then(function(data) {
+countryPromise.then(function (data) {
     console.log('Country loaded:', data)
 
     $('#country_name')
@@ -32,34 +32,11 @@ countryPromise.then(function(data) {
         .text(data.prev_election);
 
     $('main.main').show();
-}, function(err) {
+}, function (err) {
     console.log('ERR:', err.statusText)
 })
 
-last_no_zero = function(arr) {
-    let rev_arr = arr.slice().reverse();
-    for(i in rev_arr) {
-        if (rev_arr[i] != 0) return [arr.length - i - 1, rev_arr[i]];
-    }
-    return null;
-}
-
-update_grow = function(grow, grow_id) {
-    if (grow){
-        grow_sign = (grow >= 0) ? '+' : '';
-        text = grow_sign + grow.toFixed(1) + '%'
-    }else{
-        text = ''
-    }
-
-    $(grow_id)
-        .text(text)
-        .removeClass('green__text').removeClass('red__text')
-        .addClass((grow>=0) ? 'green__text': 'red__text')
-}
-
-
-countryStatsPromise.then(function(stats) {
+countryStatsPromise.then(function (stats) {
     area = last_no_zero(stats.indicator_values['1100'])
     $('#country_area')
         .text(area[1].toLocaleString());

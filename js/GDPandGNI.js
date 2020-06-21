@@ -1,33 +1,26 @@
-countryStatsPromise.then(function(stats) {
-    gdp = last_no_zero(stats.indicator_values['1610'])
-    $('#gdp')
-        .text((gdp[1]/1000000).toFixed(1));
+gdp_gni_sources = [
+    {
+        "source": "GDP",
+        // "indicator": '1610', 
+        "get_data_fn": function (stats) {
+            return stats.indicator_values['1610'].map(v => v / 1000000)
+        },
+        "color": "#2772FF"
+    },
+    {
+        "source": "GNI",
+        "indicator": '1590',
+        "color": "#37CC93"
+    },
+];
 
-    $('#gdp_year')
-        .text(stats.years[gdp[0]]); 
-    
-    if (gdp[0]>0){
-        prev_gdp = stats.indicator_values['1610'][gdp[0]-1];
-        grow = ((gdp[1] / prev_gdp) - 1) * 100;
-    } else {
-        grow = false;
-    }
-    update_grow(grow, '#gdp_grow');
-});
+countryStatsPromise.then(function (stats) {
+    // GDP
+    update_simple_indicator(stats, '1610', '#gdp');
+    // GNI
+    update_simple_indicator(stats, '1590', '#gni');
 
-countryStatsPromise.then(function(stats) {
-    gni = last_no_zero(stats.indicator_values['1590'])
-    $('#gni')
-        .text(gni[1].toLocaleString());
-
-    $('#gni_year')
-        .text(stats.years[gni[0]]); 
-    
-    if (gni[0]>0){
-        prev_gni = stats.indicator_values['1590'][gni[0]-1];
-        grow = ((gni[1] / prev_gni) - 1) * 100;
-    } else {
-        grow = false;
-    }
-    update_grow(grow, '#gni_grow');
+    // chart
+    update_bar_chart(stats, gdp_gni_sources, 'GDP-and-GNI__chart')
+    update_bar_chart(stats, gdp_gni_sources, 'GDP-and-GNI__chart-mini', font_size = 8)
 });
