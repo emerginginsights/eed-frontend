@@ -48,10 +48,11 @@ function toCommas(number) {
 
 function update_simple_indicator(stats, indicator_id, dom_node_id, format_number_func = format_number) {
     ind_val = last_no_zero(stats.indicator_values[indicator_id])
+    console.log(dom_node_id, ind_val, !ind_val);
     if (!ind_val) {
-        $(indicator_id).text('--');
-        $(indicator_id + '_year').text('--');
-        $(indicator_id + '_grow').text('');
+        $(dom_node_id).text('--');
+        $(dom_node_id + '_year').text('--');
+        $(dom_node_id + '_grow').text('');
         return;
     }
 

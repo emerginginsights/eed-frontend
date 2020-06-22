@@ -4,5 +4,5 @@ countryStatsPromise.then(function (stats) {
 
     $('#credit_rating').text('--');
 
-    update_simple_indicator(stats, '1620', '#poverty_level', format_number_func = toCommas);
+    update_simple_indicator(stats, '1620', '#poverty_level', format_number_func = format_percentage);
 });
