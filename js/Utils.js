@@ -24,15 +24,15 @@ function format_percentage(number) {
     return format_number(number) + '%';
 }
 
-function format_number(number) {
-    if (number < 10) {
-        return number.toFixed(1);
-    }
-
+function format_number(number, million_suffix = ' million') {
     suffix = ''
     if (number > 1e6) { // > 1,000,000
         number /= 1e6;
-        suffix = ' million'
+        suffix = million_suffix
+    }
+
+    if (number < 100) {
+        return number.toFixed(1) + suffix;
     }
 
     return toCommas(number) + suffix;
@@ -131,7 +131,7 @@ function update_tree_chart(stats, sources, dom_node_id, format_number_func = for
 }
 
 
-function update_area_chart(stats, sources, dom_node_id, font_size = 16) {
+function update_area_chart(stats, sources, dom_node_id, font_size = 16, format_number_func = format_number) {
     var ctx = document.getElementById(dom_node_id).getContext("2d");
 
     datasets = sources.map(function (s) {
@@ -192,7 +192,7 @@ function update_area_chart(stats, sources, dom_node_id, font_size = 16) {
                         fontFamily: 'Lato',
                         fontColor: "#fff",
                         callback: function (value, index, values) {
-                            return format_number(value);
+                            return format_number_func(value);
                         }
                     }
                 }]
@@ -210,6 +210,10 @@ function update_area_chart(stats, sources, dom_node_id, font_size = 16) {
         }
     };
     var elSourceChart = new Chart(ctx, chart_options)
+}
+function update_area_charts(stats, sources, dom_node_id, format_number_func = format_number) {
+    update_area_chart(stats, sources, dom_node_id, font_size = 16, format_number_func = format_number_func);
+    update_area_chart(stats, sources, dom_node_id + '-mini', font_size = 8, format_number_func = format_number_func);
 }
 
 function update_bar_chart(stats, sources, dom_node_id, font_size = 16, format_number_func = format_number) {
@@ -296,7 +300,10 @@ function update_bar_chart(stats, sources, dom_node_id, font_size = 16, format_nu
         }
     };
     var elSourceChart = new Chart(ctx, chart_options)
-
+}
+function update_bar_charts(stats, sources, dom_node_id, format_number_func = format_number) {
+    update_bar_chart(stats, sources, dom_node_id, font_size = 16, format_number_func = format_number_func);
+    update_bar_chart(stats, sources, dom_node_id + '-mini', font_size = 8, format_number_func = format_number_func);
 }
 
 

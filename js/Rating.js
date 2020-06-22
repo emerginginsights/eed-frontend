@@ -1,6 +1,6 @@
 countryStatsPromise.then(function (stats) {
     update_simple_indicator(stats, '1570', '#easy_busines', format_number_func = toCommas);
-    $('#easy_busines_grow').text('')
+    $('#easy_busines_grow').text('');
 
     $('#credit_rating').text('--');
 

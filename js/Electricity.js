@@ -75,8 +75,7 @@ countryStatsPromise.then(function (stats) {
     // Access to electricity
     update_simple_indicator(stats, '1000', '#country_acces_to_electricity', format_number_func = format_percentage);
     // - rural/urban
-    update_area_chart(stats, rural_to_urban, "electricity__chart");
-    update_area_chart(stats, rural_to_urban, "electricity__chart-mini", font_size = 8);
+    update_area_charts(stats, rural_to_urban, "electricity__chart");
 
     // Production
     update_simple_indicator(stats, '1070', '#electricity_prod');
@@ -84,12 +83,10 @@ countryStatsPromise.then(function (stats) {
     // Consumption
     update_simple_indicator(stats, '1260', '#electricity_cons');
     // - chart
-    update_area_chart(stats, elcons_sources, "el-consumption__chart");
-    update_area_chart(stats, elcons_sources, "el-consumption__chart-mini", font_size = 8);
+    update_area_charts(stats, elcons_sources, "el-consumption__chart");
     // Electricity Sources 
     // - Treemap
     update_tree_chart(stats, elsources, "elsources_treemap", format_number_func = format_percentage)
     // - Chart
-    update_area_chart(stats, elsources, "el-source__chart");
-    update_area_chart(stats, elsources, "el-source__chart-mini", font_size = 8);
+    update_area_charts(stats, elsources, "el-source__chart");
 });
