@@ -32,6 +32,10 @@ countryPromise.then(function (data) {
     $('#country_previous_election')
         .text(data.prev_election);
 
+    $('.time__info')
+        .text(data.time_zone);
+
+
     $('main.main').show();
 }, function (err) {
     console.log('ERR:', err.statusText)
